@@ -1,0 +1,70 @@
+id: refactor-001
+category: refactoring
+description: "Convert callback-based functions to async/await"
+difficulty: medium
+
+input:
+  prompt: |
+    Refactor the following function from callbacks to async/await:
+
+    ```typescript
+    function fetchUserData(userId: string, callback: (err: Error | null, data?: User) => void) {
+      db.query('SELECT * FROM users WHERE id = ?', [userId], (err, rows) => {
+        if (err) return callback(err);
+        if (rows.length === 0) return callback(new Error('User not found'));
+        callback(null, rows[0]);
+      });
+    }
+    ```
+
+    Requirements:
+    - Convert to async/await
+    - Throw errors instead of passing to callback
+    - Maintain exact same behavior (compatibility)
+    - Update all call sites in the codebase
+
+    The function is defined in `src/users.ts` and called in `src/api.ts` and `src/auth.ts`.
+
+  context:
+    files:
+      - src/users.ts
+      - src/api.ts
+      - src/auth.ts
+
+oracle:
+  type: test-suite
+  tests: ../oracles/refactor-001.test.ts
+
+acceptance:
+  criteria:
+    - id: async-await
+      description: "Uses async/await (no callbacks)"
+      weight: 30
+      check: "! grep -q 'callback:' src/users.ts"
+
+    - id: tests-pass
+      description: "All existing tests still pass"
+      weight: 40
+      check: "npm test users.test.ts api.test.ts auth.test.ts"
+
+    - id: call-sites-updated
+      description: "All call sites updated to use await"
+      weight: 20
+      check: "grep -c 'await fetchUserData' src/api.ts src/auth.ts | grep -q 2"  # Expect 2 usages
+
+    - id: no-new-bugs
+      description: "No new lint warnings or type errors"
+      weight: 10
+      check: "npm run lint -- src/users.ts src/api.ts src/auth.ts && tsc --noEmit"
+
+  min_passing_score: 70
+
+metrics:
+  track:
+    - tokens_used
+    - wall_time_sec
+    - edits_count
+    - test_pass_rate
+    - files_changed
+    - lines_added
+    - lines_removed

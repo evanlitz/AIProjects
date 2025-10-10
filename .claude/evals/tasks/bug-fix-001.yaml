@@ -1,0 +1,75 @@
+id: bug-fix-001
+category: bug-fixing
+description: "Fix null pointer exception in authentication middleware"
+difficulty: medium
+
+input:
+  prompt: |
+    Bug report:
+
+    **Error**: `TypeError: Cannot read property 'id' of null`
+    **Stack trace**:
+    ```
+    at authenticateUser (src/middleware/auth.ts:42)
+    at Layer.handle (express/lib/router/layer.js:95)
+    ```
+
+    **Repro steps**:
+    1. User logs in via OAuth (Google)
+    2. OAuth callback creates a session with `user: null` (bug in OAuth handler)
+    3. Next API request calls `authenticateUser` middleware
+    4. Middleware tries to access `req.session.user.id` → crashes
+
+    **Expected**: Middleware should handle missing user gracefully (return 401)
+    **Actual**: Server crashes with 500 error
+
+    **Context**: This started happening after we added OAuth support last week.
+
+    Find the root cause, fix it, and write a test that would've caught this.
+
+  context:
+    files:
+      - src/middleware/auth.ts
+      - src/oauth/callback.ts
+      - tests/middleware/auth.test.ts
+
+oracle:
+  type: test-suite
+  tests: ../oracles/bug-fix-001.test.ts
+
+acceptance:
+  criteria:
+    - id: repro-test
+      description: "Created a failing test that reproduces the bug"
+      weight: 20
+      check: "Test file includes a case for null user"
+
+    - id: root-cause-explained
+      description: "Root cause documented (comment or report)"
+      weight: 10
+      check: "Explanation of why it broke"
+
+    - id: fix-applied
+      description: "Code fixed (null check added)"
+      weight: 30
+      check: "grep -q 'if (!req.session.user)' src/middleware/auth.ts || grep -q 'req.session.user?' src/middleware/auth.ts"
+
+    - id: tests-pass
+      description: "The repro test now passes (and all other tests still pass)"
+      weight: 30
+      check: "npm test auth.test.ts bug-fix-001.test.ts"
+
+    - id: edge-cases-covered
+      description: "Added tests for: null user, undefined session, missing id"
+      weight: 10
+      check: "Test file includes 3+ edge case tests"
+
+  min_passing_score: 70
+
+metrics:
+  track:
+    - tokens_used
+    - wall_time_sec
+    - edits_count
+    - test_pass_rate
+    - tests_added

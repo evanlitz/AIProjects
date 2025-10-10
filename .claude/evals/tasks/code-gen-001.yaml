@@ -1,0 +1,56 @@
+id: code-gen-001
+category: code-generation
+description: "Implement a type-safe deep clone function in TypeScript"
+difficulty: easy
+
+input:
+  prompt: |
+    Write a TypeScript function `deepClone<T>(obj: T): T` that creates a deep copy of an object.
+
+    Requirements:
+    - Handle nested objects and arrays
+    - Preserve type information
+    - Do not use external libraries (JSON.parse/stringify is fine for this exercise)
+    - Handle edge cases: null, undefined, primitives
+
+    Place the implementation in a file called `deepClone.ts` in the current directory.
+
+  context:
+    files: []
+
+oracle:
+  type: test-suite
+  tests: ../oracles/code-gen-001.test.ts
+  reference: ../oracles/code-gen-001-expected.ts  # Optional: show one correct implementation
+
+acceptance:
+  criteria:
+    - id: signature
+      description: "Function signature matches: deepClone<T>(obj: T): T"
+      weight: 10
+      check: "grep -q 'function deepClone<T>(obj: T): T' deepClone.ts || grep -q 'const deepClone = <T,>(obj: T): T =>' deepClone.ts"
+
+    - id: compile
+      description: "TypeScript compiles without errors"
+      weight: 20
+      check: "tsc --noEmit deepClone.ts"
+
+    - id: tests-pass
+      description: "All tests pass"
+      weight: 50
+      check: "npm test code-gen-001.test.ts"
+
+    - id: handles-edge-cases
+      description: "Handles null, undefined, arrays, nested objects"
+      weight: 20
+      check: "Tests include coverage for these cases"
+
+  min_passing_score: 70
+
+metrics:
+  track:
+    - tokens_used
+    - wall_time_sec
+    - edits_count
+    - compile_success
+    - test_pass_rate

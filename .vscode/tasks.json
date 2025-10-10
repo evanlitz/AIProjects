@@ -1,0 +1,108 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Claude: Run Tests",
+      "type": "shell",
+      "command": "npm test",
+      "problemMatcher": ["$tsc"],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Claude: Run Build",
+      "type": "shell",
+      "command": "npm run build",
+      "problemMatcher": ["$tsc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Claude: Lint",
+      "type": "shell",
+      "command": "npm run lint",
+      "problemMatcher": ["$eslint-stylish"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Claude: Format (Prettier)",
+      "type": "shell",
+      "command": "npx prettier --write .",
+      "presentation": {
+        "reveal": "silent"
+      }
+    },
+    {
+      "label": "Claude: Type Check",
+      "type": "shell",
+      "command": "npx tsc --noEmit",
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Claude: Map Repo",
+      "type": "shell",
+      "command": "echo '@repo-cartographer map this codebase' | claude-code",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Claude: Run Evals",
+      "type": "shell",
+      "command": "node .claude/evals/scripts/run-eval.js --suite all",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Claude: Compare Evals to Baseline",
+      "type": "shell",
+      "command": "node .claude/evals/scripts/run-eval.js --suite all --compare results/baseline.json",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Claude: Git Status",
+      "type": "shell",
+      "command": "git status && git diff --stat",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Claude: View Code Map",
+      "type": "shell",
+      "command": "cat .claude/code-map.md || echo 'Code map not generated yet. Run @repo-cartographer first.'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    }
+  ]
+}

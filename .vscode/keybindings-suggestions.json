@@ -1,0 +1,52 @@
+{
+  "comment": "Copy these keybindings to your VS Code User keybindings.json (Cmd/Ctrl+K Cmd/Ctrl+S)",
+  "keybindings": [
+    {
+      "key": "ctrl+shift+t",
+      "command": "workbench.action.tasks.runTask",
+      "args": "Claude: Run Tests",
+      "when": "!inDebugMode"
+    },
+    {
+      "key": "ctrl+shift+b",
+      "command": "workbench.action.tasks.runTask",
+      "args": "Claude: Run Build",
+      "when": "!inDebugMode"
+    },
+    {
+      "key": "ctrl+shift+l",
+      "command": "workbench.action.tasks.runTask",
+      "args": "Claude: Lint",
+      "when": "editorFocus"
+    },
+    {
+      "key": "ctrl+shift+f",
+      "command": "workbench.action.tasks.runTask",
+      "args": "Claude: Format (Prettier)",
+      "when": "editorFocus"
+    },
+    {
+      "key": "ctrl+shift+m",
+      "command": "workbench.action.tasks.runTask",
+      "args": "Claude: Map Repo",
+      "when": "!terminalFocus"
+    },
+    {
+      "key": "ctrl+shift+e",
+      "command": "workbench.action.tasks.runTask",
+      "args": "Claude: Run Evals",
+      "when": "!terminalFocus"
+    },
+    {
+      "key": "ctrl+shift+g",
+      "command": "workbench.action.tasks.runTask",
+      "args": "Claude: Git Status",
+      "when": "!terminalFocus"
+    }
+  ],
+  "notes": [
+    "These are suggestions - customize as needed",
+    "Avoid conflicts with existing VS Code shortcuts",
+    "Test each binding after adding to ensure it works"
+  ]
+}
