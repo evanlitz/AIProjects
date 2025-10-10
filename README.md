@@ -1,10 +1,10 @@
 # AI Projects
 
-Personal AI development workspace powered by Claude Code.
+Personal projects for developing AI models with different datasets, powered by a production-grade Claude Code setup.
 
 ## What's Here
 
-This repository contains my AI experiments and projects, along with a production-grade Claude Code configuration.
+This repository contains my AI experiments and projects, along with a complete Claude Code platform configuration.
 
 ### Claude Code Platform
 
