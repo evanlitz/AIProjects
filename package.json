@@ -1,0 +1,26 @@
+{
+  "name": "aiprojects",
+  "version": "1.0.0",
+  "description": "Personal projects for developing AI models with different datasets, powered by a production-grade Claude Code setup.",
+  "main": "test-format.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evanlitz/AIProjects.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evanlitz/AIProjects/issues"
+  },
+  "homepage": "https://github.com/evanlitz/AIProjects#readme",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  },
+  "dependencies": {
+    "yaml": "^2.8.1"
+  }
+}

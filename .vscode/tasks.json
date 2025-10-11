@@ -5,7 +5,9 @@
       "label": "Claude: Run Tests",
       "type": "shell",
       "command": "npm test",
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "group": {
         "kind": "test",
         "isDefault": true
@@ -19,7 +21,9 @@
       "label": "Claude: Run Build",
       "type": "shell",
       "command": "npm run build",
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -33,7 +37,9 @@
       "label": "Claude: Lint",
       "type": "shell",
       "command": "npm run lint",
-      "problemMatcher": ["$eslint-stylish"],
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -51,7 +57,9 @@
       "label": "Claude: Type Check",
       "type": "shell",
       "command": "npx tsc --noEmit",
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [
+        "$tsc"
+      ],
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -93,7 +101,10 @@
       "presentation": {
         "reveal": "always",
         "panel": "new"
-      }
+      },
+      "problemMatcher": [
+        "$python"
+      ]
     },
     {
       "label": "Claude: View Code Map",

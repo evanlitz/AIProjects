@@ -1,3 +1,4 @@
+<!-- Test comment -->
 # Claude Code System Prompt
 
 ## Your Role
